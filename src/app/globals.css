@@ -1,0 +1,578 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ================================================
+   TYPOGRAPHY SYSTEM
+   ================================================
+   Primary: Alexandria (Arabic)
+   Secondary/Fallback: Tajawal, Almarai, El Messiri
+   Future: Qomra Arabic (ITF) - will be self-hosted
+   ================================================ */
+
+@font-face {
+  font-family: 'Alexandria';
+  src: local('Alexandria');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/asset/font/Tajawal/Tajawal-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/asset/font/Tajawal/Tajawal-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/asset/font/Tajawal/Tajawal-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/asset/font/Tajawal/Tajawal-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/asset/font/Tajawal/Tajawal-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/asset/font/Tajawal/Tajawal-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/asset/font/Tajawal/Tajawal-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Qomariah Arabic';
+  src: url('/asset/font/qomariah-arabic/Qomariah Arabic.ttf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* Ministry Title typography */
+.ministry-title {
+  font-family: 'Qomariah Arabic', 'Alexandria', system-ui, sans-serif;
+  font-weight: 900;
+  color: var(--color-brand-primary-alpha);
+}
+
+/* Future font placeholder - swap 'Alexandria' with 'Qomra Arabic' when ready */
+:root {
+  --font-primary: 'Alexandria', 'Tajawal', 'Almarai', 'El Messiri', system-ui, sans-serif;
+  --font-display: var(--font-primary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-primary);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+/* ================================================
+   COLOR PALETTE - LIGHT MODE
+   ================================================
+   Primary Brand: #054239 (dark green)
+   Title Color: #054239B2 (with transparency)
+   Gold Accent: #B5985A (for logo/icon accents)
+   Background: Soft off-white/cream
+   ================================================ */
+
+:root {
+  --radius: 0.75rem;
+  
+  /* Brand colors */
+  --color-brand-primary: #054239;
+  --color-brand-primary-alpha: #054239B2;
+  --color-brand-gold: #B5985A;
+  --color-brand-gold-muted: #9A8255;
+  
+  /* Icon gradient colors (for SVG gradients) */
+  --icon-gradient-start: #054239;
+  --icon-gradient-end: #988561;
+  
+  /* Card title color */
+  --card-title-color: #054239;
+  
+  /* Ministry title fill color */
+  --ministry-title-fill: #054239;
+  --ministry-title-opacity: 0.7;
+  
+  /* Semantic colors */
+  --background: #F8F6F2;
+  --foreground: #2D3A38;
+  --card: #FFFFFF;
+  --card-foreground: #054239;
+  --popover: #FFFFFF;
+  --popover-foreground: #2D3A38;
+  --primary: #054239;
+  --primary-foreground: #FAFAF8;
+  --secondary: #F0EDE7;
+  --secondary-foreground: #054239;
+  --muted: #E8E4DC;
+  --muted-foreground: #6B7876;
+  --accent: #054239;
+  --accent-foreground: #FAFAF8;
+  --destructive: #C53030;
+  --border: #DED9D0;
+  --input: #DED9D0;
+  --ring: #054239;
+  
+  /* Chart colors (kept for compatibility) */
+  --chart-1: #054239;
+  --chart-2: #B5985A;
+  --chart-3: #6B8E7E;
+  --chart-4: #8B7355;
+  --chart-5: #4A6660;
+  
+  /* Sidebar colors */
+  --sidebar: #F8F6F2;
+  --sidebar-foreground: #2D3A38;
+  --sidebar-primary: #054239;
+  --sidebar-primary-foreground: #FAFAF8;
+  --sidebar-accent: #E8E4DC;
+  --sidebar-accent-foreground: #054239;
+  --sidebar-border: #DED9D0;
+  --sidebar-ring: #054239;
+
+  /* Status badge colors */
+  --status-online: #22C55E;
+  --status-offline: #EF4444;
+}
+
+/* ================================================
+   COLOR PALETTE - DARK MODE
+   ================================================
+   Base: #032d23 (deep forest green)
+   Government-grade: calm, readable, no pure black
+   Icons/titles: "lit" appearance against dark background
+   ================================================ */
+
+html.dark,
+.dark {
+  /* Brand colors - adjusted for dark (brighter for visibility) */
+  --color-brand-primary: #8FC9BC;
+  --color-brand-primary-alpha: #8FC9BCDD;
+  --color-brand-gold: #E2C992;
+  --color-brand-gold-muted: #D4B87A;
+  
+  /* Icon gradient colors - brighter for dark mode visibility */
+  --icon-gradient-start: #7AB5A8;
+  --icon-gradient-end: #D4B87A;
+  
+  /* Card title color - lighter gold-green tint for elegance */
+  --card-title-color: #D4C9A8;
+  
+  /* Ministry title fill color - lighter for dark mode */
+  --ministry-title-fill: #b8a57b;
+  --ministry-title-opacity: 1;
+  
+  /* Semantic colors */
+  --background: #032d23;
+  --foreground: #E8EBE9;
+  --card: #054239;
+  --card-foreground: #D4C9A8;
+  --popover: #054239;
+  --popover-foreground: #E8EBE9;
+  --primary: #8FC9BC;
+  --primary-foreground: #032d23;
+  --secondary: #0A4A3E;
+  --secondary-foreground: #E8EBE9;
+  --muted: #0A4A3E;
+  --muted-foreground: #9CABA6;
+  --accent: #8FC9BC;
+  --accent-foreground: #032d23;
+  --destructive: #F87171;
+  --border: #0F5C4D;
+  --input: #0F5C4D;
+  --ring: #8FC9BC;
+  
+  /* Chart colors */
+  --chart-1: #8FC9BC;
+  --chart-2: #E2C992;
+  --chart-3: #A8D4C8;
+  --chart-4: #D4B87A;
+  --chart-5: #7AB5A8;
+  
+  /* Sidebar colors */
+  --sidebar: #032d23;
+  --sidebar-foreground: #E8EBE9;
+  --sidebar-primary: #8FC9BC;
+  --sidebar-primary-foreground: #032d23;
+  --sidebar-accent: #0A4A3E;
+  --sidebar-accent-foreground: #E8EBE9;
+  --sidebar-border: #0F5C4D;
+  --sidebar-ring: #8FC9BC;
+
+  /* Status badge colors */
+  --status-online: #4ADE80;
+  --status-offline: #F87171;
+  --status-online-rgb: 74, 222, 128;
+  --status-offline-rgb: 248, 113, 113;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  html {
+    font-family: var(--font-primary);
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-primary);
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}
+
+/* ================================================
+   BACKGROUND PATTERN
+   ================================================ */
+
+.bg-pattern {
+  background-image: url('/asset/img/bg_star.png');
+  background-repeat: repeat;
+  background-size: 300px;
+  background-position: center;
+}
+
+.bg-pattern-overlay {
+  background-color: rgba(248, 246, 242, 0.92);
+}
+
+.dark .bg-pattern-overlay {
+  background-color: rgba(3, 45, 35, 0.92);
+}
+
+/* ================================================
+   LINK CARD STYLES
+   ================================================ */
+
+.link-card {
+  position: relative;
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out, rotate 0.2s ease-out;
+  border: 2px solid transparent;
+  background: linear-gradient(var(--card), var(--card)) padding-box,
+              linear-gradient(180deg, var(--icon-gradient-start) 25%, var(--icon-gradient-end) 75%) border-box;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link-card:hover {
+    box-shadow: 0 12px 32px -4px rgba(5, 66, 57, 0.18);
+    transform: scale(1.03) rotate(0.5deg);
+  }
+  
+  .dark .link-card:hover {
+    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.link-card:active {
+  transform: scale(0.98);
+}
+
+/* LinkCard title typography - uses card-title-color variable */
+.link-card-title {
+  font-family: 'Tajawal', 'Alexandria', system-ui, sans-serif;
+  font-weight: 500;
+  color: var(--card-title-color);
+}
+
+/* ================================================
+   UTILITY CLASSES
+   ================================================ */
+
+.text-brand-primary {
+  color: var(--color-brand-primary);
+}
+
+.text-brand-primary-alpha {
+  color: var(--color-brand-primary-alpha);
+}
+
+.text-brand-gold {
+  color: var(--color-brand-gold);
+}
+
+.bg-brand-primary {
+  background-color: var(--color-brand-primary);
+}
+
+.icon-stroke {
+  stroke: var(--color-brand-gold-muted);
+}
+
+/* ================================================
+   LOGO HOVER EFFECT
+   ================================================ */
+
+.logo-container {
+  transition: transform 0.25s ease-out, filter 0.25s ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .logo-container:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 12px rgba(5, 66, 57, 0.15));
+  }
+  
+  .dark .logo-container:hover {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  }
+}
+
+/* ================================================
+   STATUS BADGE STYLES
+   ================================================ */
+
+.status-badge {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  /* Gradient border using the same technique as link cards */
+  background: linear-gradient(var(--card), var(--card)) padding-box,
+              linear-gradient(180deg, var(--icon-gradient-start) 25%, var(--icon-gradient-end) 75%) border-box;
+  /* Subtle shadow that adapts to theme */
+  box-shadow: 0 2px 8px -2px rgba(5, 66, 57, 0.12),
+              0 1px 3px -1px rgba(5, 66, 57, 0.08);
+  transition: opacity 0.3s ease, 
+              transform 0.3s ease,
+              box-shadow 0.2s ease,
+              background-color 0.2s ease,
+              background 0.2s ease;
+}
+
+.dark .status-badge {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.3),
+              0 1px 3px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* Override gradient border for offline state - use data attribute approach */
+.status-badge[data-status="offline"] {
+  background: linear-gradient(var(--card), var(--card)) padding-box,
+              linear-gradient(180deg, var(--destructive) 25%, var(--status-offline) 75%) border-box;
+}
+
+.theme-toggle-badge {
+  font-family: var(--font-primary);
+  /* Gradient border using the same technique as link cards */
+  background: linear-gradient(var(--card), var(--card)) padding-box,
+              linear-gradient(180deg, var(--icon-gradient-start) 25%, var(--icon-gradient-end) 75%) border-box;
+  /* Subtle shadow that adapts to theme */
+  box-shadow: 0 2px 8px -2px rgba(5, 66, 57, 0.12),
+              0 1px 3px -1px rgba(5, 66, 57, 0.08);
+  transition: background-color 0.2s ease, 
+              transform 0.1s ease,
+              box-shadow 0.2s ease;
+}
+
+.dark .theme-toggle-badge {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.3),
+              0 1px 3px -1px rgba(0, 0, 0, 0.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle-badge:hover {
+    box-shadow: 0 4px 12px -2px rgba(5, 66, 57, 0.2),
+                0 2px 6px -1px rgba(5, 66, 57, 0.15);
+  }
+  
+  .dark .theme-toggle-badge:hover {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.5),
+                0 2px 6px -1px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.theme-toggle-badge:active {
+  transform: scale(0.95);
+}
+
+/* ================================================
+   WIFI RECONNECTING ANIMATION
+   ================================================
+   Waves appear from bottom to top sequentially
+   ================================================ */
+
+.wifi-wave {
+  opacity: 0;
+  animation: wifi-wave-appear 0.4s ease-out forwards;
+}
+
+.wifi-wave-1 {
+  animation-delay: 0s;
+}
+
+.wifi-wave-2 {
+  animation-delay: 0.15s;
+}
+
+.wifi-wave-3 {
+  animation-delay: 0.3s;
+}
+
+.wifi-wave-4 {
+  animation-delay: 0.45s;
+}
+
+.wifi-wave-5 {
+  animation-delay: 0.6s;
+}
+
+.wifi-wave-6 {
+  animation-delay: 0.75s;
+}
+
+@keyframes wifi-wave-appear {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================
+   DIALOG ANIMATIONS
+   ================================================ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in-95 {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-out-95 {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-from-top-5 {
+  from {
+    transform: translateY(-1.25rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.animate-out {
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.fade-out {
+  animation: fade-out 0.2s ease-out;
+}
+
+.zoom-in-95 {
+  animation: zoom-in-95 0.2s ease-out;
+}
+
+.zoom-out-95 {
+  animation: zoom-out-95 0.2s ease-out;
+}
+
+.slide-in-from-top-5 {
+  animation: slide-in-from-top-5 0.3s ease-out;
+}
