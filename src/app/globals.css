@@ -103,6 +103,12 @@
   color: var(--color-brand-primary-alpha);
 }
 
+/* Header Qomra Arabic text for "نظام إدارة المهام" */
+.qomra-header-text {
+  font-family: 'Qomra Arabic', 'Qomariah Arabic', 'Alexandria', system-ui, sans-serif;
+  font-weight: 500;
+}
+
 /* Future font placeholder - swap 'Alexandria' with 'Qomra Arabic' when ready */
 :root {
   --font-primary: 'Alexandria', 'Tajawal', 'Almarai', 'El Messiri', system-ui, sans-serif;
@@ -361,6 +367,80 @@ html.dark,
   font-family: 'Tajawal', 'Alexandria', system-ui, sans-serif;
   font-weight: 500;
   color: var(--card-title-color);
+}
+
+/* ================================================
+   SIDEBAR USER PROFILE STYLES
+   ================================================ */
+
+/* Avatar hover glow effect */
+.sidebar-avatar-hover {
+  position: relative;
+}
+
+.sidebar-avatar-hover::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--icon-gradient-start), var(--icon-gradient-end));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(12px);
+}
+
+.sidebar-avatar-hover:hover::before {
+  opacity: 0.4;
+}
+
+.dark .sidebar-avatar-hover:hover::before {
+  opacity: 0.6;
+}
+
+/* ================================================
+   SIDEBAR ITEM ENHANCED STYLES
+   ================================================ */
+
+/* Sidebar item active indicator animation */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.sidebar-item-active-indicator {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Sidebar item hover glow */
+.sidebar-item-hover-glow {
+  position: relative;
+}
+
+.sidebar-item-hover-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--sidebar-primary), var(--color-brand-gold));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.sidebar-item-hover-glow:hover::before {
+  opacity: 0.15;
+}
+
+.dark .sidebar-item-hover-glow:hover::before {
+  opacity: 0.25;
 }
 
 /* ================================================
@@ -674,4 +754,11 @@ html.dark,
 [data-state="closed"][class*="fade-out-80"] {
   animation: toast-fade-out 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
   will-change: transform, opacity;
+}
+
+/* Hide ThemeToggle and OfflineIndicator from StatusBar when DashboardLayout is present (Header has both) */
+/* Using :has() selector to detect when dashboard-layout exists in the DOM */
+body:has(.dashboard-layout) .status-bar-theme-toggle,
+body:has(.dashboard-layout) .status-bar-offline-indicator {
+  display: none !important;
 }

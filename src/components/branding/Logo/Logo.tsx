@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 interface LogoProps {
   className?: string;
@@ -24,7 +25,12 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
         width={dimensions.width}
         height={dimensions.height}
         priority
-        className="w-auto h-auto max-w-[140px] md:max-w-[160px] lg:max-w-[200px]"
+        className={cn(
+          "w-auto h-auto",
+          size === "sm" && "max-w-[80px] md:max-w-[100px]",
+          size === "md" && "max-w-[140px] md:max-w-[160px]",
+          size === "lg" && "max-w-[200px]"
+        )}
       />
     </div>
   );

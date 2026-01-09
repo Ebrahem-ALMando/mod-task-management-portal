@@ -1,4 +1,4 @@
-import Header from '@/components/layout/Header';
+import { Header } from '@/components/layout/Header/Header';
 import LinksGrid from '@/components/cards/LinksGrid';
 
 export default function Home() {
