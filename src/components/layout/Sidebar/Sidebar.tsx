@@ -15,6 +15,7 @@
  */
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { ChevronRight, ChevronLeft } from "lucide-react"
 import { SidebarItem } from "../SidebarItem"
 import { UserProfile } from "../UserProfile"
@@ -44,12 +45,13 @@ export interface SidebarProps {
 }
 
 export function Sidebar({ 
-  activeRoute = "dashboard", 
+  activeRoute,
   isOpen = true,
   onToggle,
   className 
 }: SidebarProps) {
   const [internalIsOpen, setInternalIsOpen] = useState(true)
+  const pathname = usePathname()
   
   // Use controlled state if provided, otherwise use internal state
   const sidebarIsOpen = isOpen !== undefined ? isOpen : internalIsOpen
@@ -60,6 +62,9 @@ export function Sidebar({
       setInternalIsOpen(!internalIsOpen)
     }
   }
+
+
+ 
 
   return (
     <>
@@ -107,12 +112,9 @@ export function Sidebar({
                 key={item.id}
                 icon={item.icon}
                 label={item.label}
-                isActive={activeRoute === item.id}
+                href={item.href}
+            
                 badge={item.badge}
-                onClick={() => {
-                  // UI only - no routing logic
-                  // This will be handled by parent component or router
-                }}
               />
             ))}
           </nav>

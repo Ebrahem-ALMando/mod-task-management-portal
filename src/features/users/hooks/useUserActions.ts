@@ -105,6 +105,15 @@ export interface UseUserActionsReturn {
    * Must be online - will fail immediately if offline
    */
   toggleActive: (params: { id: number | string }) => Promise<UserResource | null>
+
+  /**
+   * Delete user (ONLINE ONLY)
+   * 
+   * DELETE /users/{id}
+   * 
+   * Must be online - will fail immediately if offline
+   */
+  deleteUser: (params: { id: number | string }) => Promise<void>
 }
 
 /**
@@ -327,9 +336,67 @@ export function useUserActions(): UseUserActionsReturn {
     [execute, reportAction]
   )
 
+  /**
+   * Delete user (ONLINE ONLY)
+   * 
+   * Per API_CONTRACT.md: NOT suitable for queue (destructive action)
+   */
+  const deleteUser = useCallback(
+    async (params: { id: number | string }): Promise<void> => {
+      // Offline guard: fail immediately if offline
+      if (!isOnline()) {
+        const actionId = generateActionId()
+        const offlineError = createOfflineError()
+
+        // Report failure immediately
+        reportAction({
+          id: actionId,
+          status: "failed",
+          error: offlineError,
+        })
+
+        throw offlineError
+      }
+
+      const actionId = generateActionId()
+      actionIdRef.current = actionId
+
+      try {
+        const response = await execute({
+          endpoint: `/users/${params.id}`,
+          method: "DELETE",
+        })
+
+        // Extract message from API response wrapper
+        const successMessage = extractSuccessMessage(response) || "تم حذف المستخدم بنجاح"
+
+        // Report success
+        reportAction({
+          id: actionId,
+          status: "success",
+          error: null,
+          successMessage,
+        })
+      } catch (err) {
+        const apiError = err as ApiError
+
+        // Report failure
+        reportAction({
+          id: actionId,
+          status: "failed",
+          error: apiError,
+        })
+
+        throw apiError
+      }
+    },
+    [execute, reportAction]
+  )
+
   return {
     createUser,
     updateUser,
     toggleActive,
+    deleteUser,
   }
 }

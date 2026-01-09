@@ -6,13 +6,15 @@
  * Responsibilities:
  * - Display menu item with icon and label
  * - Show active state (UI only)
+ * - Handle navigation via Link
  * 
  * Rules:
  * - UI only - no routing logic
- * - No hooks
- * - No API calls
+ * - Uses Next.js Link for navigation
  */
 
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import type { LucideIcon } from "lucide-react"
 
@@ -28,7 +30,12 @@ export interface SidebarItemProps {
   label: string
   
   /**
-   * Whether this item is active
+   * Navigation href
+   */
+  href: string
+  
+  /**
+   * Whether this item is active (optional, auto-detected from pathname if not provided)
    */
   isActive?: boolean
   
@@ -36,23 +43,24 @@ export interface SidebarItemProps {
    * Optional badge count
    */
   badge?: number
-  
-  /**
-   * Click handler (optional)
-   */
-  onClick?: () => void
 }
 
 export function SidebarItem({
   icon: Icon,
   label,
-  isActive = false,
+  href,
+  isActive: isActiveProp,
   badge,
-  onClick,
 }: SidebarItemProps) {
+  const pathname = usePathname()
+  
+  // Auto-detect active state from pathname if not provided
+  const isActive = (pathname === href)
+
   return (
-    <button
-      onClick={onClick}
+    <Link
+      href={href}
+      prefetch={true}
       className={cn(
         "group relative w-full flex items-center gap-3 px-4 py-3 rounded-lg",
         "transition-all duration-300 ease-out text-right cursor-pointer",
@@ -92,6 +100,6 @@ export function SidebarItem({
           {badge > 99 ? "99+" : badge}
         </span>
       )}
-    </button>
+    </Link>
   )
 }

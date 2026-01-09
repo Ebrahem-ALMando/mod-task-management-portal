@@ -11,27 +11,30 @@
  * 
  * Rules:
  * - UI only - no auth logic
- * - No hooks (except for date formatting)
+ * - Uses usePathname to get current page
  * - No API calls
- * - Static page title
+ * - Dynamic page title based on route
+ * - Logic delegated to helper files
  */
 
+import { usePathname } from "next/navigation"
 import { NotificationsBell } from "../NotificationsBell"
 import ThemeToggle from "@/components/status/ThemeToggle"
 import OfflineIndicator from "@/components/status/OfflineIndicator/OfflineIndicator"
 import Logo from "@/components/branding/Logo"
 import MinistryTitle from "@/components/branding/MinistryTitle"
-import { LayoutDashboard } from "lucide-react"
+import { getPageInfo } from "./helpers"
+import { formatDateInArabic } from "@/lib/utils/date"
 import { cn } from "@/lib/utils"
 
 export interface HeaderProps {
   /**
-   * Page title (static)
+   * Page title (optional, auto-detected from pathname if not provided)
    */
   title?: string
   
   /**
-   * Page icon (optional, defaults to LayoutDashboard)
+   * Page icon (optional, auto-detected from pathname if not provided)
    */
   icon?: React.ComponentType<{ className?: string }>
   
@@ -42,26 +45,21 @@ export interface HeaderProps {
 }
 
 export function Header({ 
-  title = "لوحة التحكم", 
-  icon: Icon = LayoutDashboard,
+  title,
+  icon,
   className 
 }: HeaderProps) {
-  // Format date in Arabic
-  const formatDate = () => {
-    const now = new Date()
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }
-    return now.toLocaleDateString('ar-SA', options)
-  }
+  const pathname = usePathname()
+  
+  // Get page info from pathname
+  const pageInfo = getPageInfo(pathname)
+  const displayTitle = title || pageInfo.title
+  const Icon = icon || pageInfo.icon
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-[55] w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60",
+        "sticky top-0  w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60",
         className
       )}
     >
@@ -71,11 +69,11 @@ export function Header({
           <div className="flex items-center gap-2">
             <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
             <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground">
-              {title}
+              {displayTitle}
             </h1>
           </div>
           <p className="text-xs md:text-sm text-muted-foreground">
-            {formatDate()}
+            {formatDateInArabic()}
           </p>
         </div>
 
