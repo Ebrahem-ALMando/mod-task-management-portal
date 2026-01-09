@@ -24,7 +24,7 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
         width={dimensions.width}
         height={dimensions.height}
         priority
-        className="w-auto h-auto max-w-[100px] md:max-w-[140px] lg:max-w-[200px]"
+        className="w-auto h-auto max-w-[140px] md:max-w-[160px] lg:max-w-[200px]"
       />
     </div>
   );

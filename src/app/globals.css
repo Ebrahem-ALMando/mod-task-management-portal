@@ -73,9 +73,32 @@
   font-display: swap;
 }
 
+/* Qomra Arabic font faces */
+@font-face {
+  font-family: 'Qomra Arabic';
+  src: url('/asset/font/QomraArabic/itfQomraArabic-Light.woff') format('woff'),
+       url('/asset/font/QomraArabic/itfQomraArabic-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Qomra Arabic';
+  src: url('/asset/font/QomraArabic/itfQomraArabic-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-display: swap;
+}
+
 /* Ministry Title typography */
 .ministry-title {
   font-family: 'Qomariah Arabic', 'Alexandria', system-ui, sans-serif;
+  font-weight: 900;
+  color: var(--color-brand-primary-alpha);
+}
+
+/* Task Management Title typography - same style as Ministry Title */
+.task-management-title {
+  font-family: 'Qomra Arabic', 'Qomariah Arabic', 'Alexandria', system-ui, sans-serif;
   font-weight: 900;
   color: var(--color-brand-primary-alpha);
 }
@@ -299,7 +322,7 @@ html.dark,
 }
 
 .bg-pattern-overlay {
-  background-color: rgba(248, 246, 242, 0.92);
+  background-color: rgba(248, 246, 242, 0.80);
 }
 
 .dark .bg-pattern-overlay {
@@ -575,4 +598,80 @@ html.dark,
 
 .slide-in-from-top-5 {
   animation: slide-in-from-top-5 0.3s ease-out;
+}
+
+/* ================================================
+   TOAST ANIMATIONS - Smooth enter/exit
+   ================================================ */
+
+@keyframes toast-slide-in-from-top {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-slide-in-from-bottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-slide-out-to-right {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes toast-fade-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Toast animations - Smooth enter/exit using data attributes */
+/* Force animations to work with Radix UI data attributes */
+[data-state="open"].slide-in-from-top-full,
+[data-state="open"][class*="slide-in-from-top-full"] {
+  animation: toast-slide-in-from-top 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 640px) {
+  [data-state="open"][class*="slide-in-from-bottom-full"],
+  [data-state="open"].sm\:slide-in-from-bottom-full {
+    animation: toast-slide-in-from-bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: transform, opacity;
+  }
+}
+
+[data-state="closed"].slide-out-to-right-full,
+[data-state="closed"][class*="slide-out-to-right-full"] {
+  animation: toast-slide-out-to-right 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+  will-change: transform, opacity;
+}
+
+[data-state="closed"].fade-out-80,
+[data-state="closed"][class*="fade-out-80"] {
+  animation: toast-fade-out 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+  will-change: transform, opacity;
 }
