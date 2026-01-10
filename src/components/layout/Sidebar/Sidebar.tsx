@@ -21,6 +21,7 @@ import { SidebarItem } from "../SidebarItem"
 import { UserProfile } from "../UserProfile"
 import { menuItems } from "./menuItems"
 import { cn } from "@/lib/utils"
+import { useProfile } from "@/features/profile"
 
 export interface SidebarProps {
   /**
@@ -52,6 +53,9 @@ export function Sidebar({
 }: SidebarProps) {
   const [internalIsOpen, setInternalIsOpen] = useState(true)
   const pathname = usePathname()
+  
+  // Fetch user profile data
+  const { profile, isLoading: isProfileLoading } = useProfile()
   
   // Use controlled state if provided, otherwise use internal state
   const sidebarIsOpen = isOpen !== undefined ? isOpen : internalIsOpen
@@ -102,7 +106,14 @@ export function Sidebar({
         )}
       >
         {/* User Profile Section */}
-        {sidebarIsOpen && <UserProfile name="أحمد محمد" role="admin" />}
+        {sidebarIsOpen && (
+          <UserProfile 
+            name={profile?.name || "مستخدم"}
+            avatar={profile?.avatar_url || profile?.avatar || null}
+            role={profile?.role || "department"}
+            isLoading={isProfileLoading}
+          />
+        )}
 
         {/* Navigation Menu */}
         {sidebarIsOpen && (

@@ -53,8 +53,8 @@ export function Header({
   
   // Get page info from pathname
   const pageInfo = getPageInfo(pathname)
-  const displayTitle = title || pageInfo.title
-  const Icon = icon || pageInfo.icon
+  const displayTitle =  pageInfo.title
+  const Icon =  pageInfo.icon
 
   return (
     <header

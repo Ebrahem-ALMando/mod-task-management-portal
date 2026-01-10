@@ -32,6 +32,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { getRelativeTime } from "@/lib/utils/formatRelativeTime"
+import { UserTasksStatistics } from "./UserTasksStatistics"
 import type { UserResource } from "@/features/users"
 
 export interface UserCardProps {
@@ -158,6 +159,16 @@ export function UserCard({
               </span>
             </div>
           </div>
+
+          {/* Tasks Statistics */}
+          {user.tasks_statistics && (
+            <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
+              <UserTasksStatistics
+                statistics={user.tasks_statistics}
+                variant="compact"
+              />
+            </div>
+          )}
 
           {/* Created Date and Actions */}
           <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-800">

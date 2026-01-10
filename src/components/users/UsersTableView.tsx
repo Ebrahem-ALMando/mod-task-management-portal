@@ -22,6 +22,7 @@ import { Edit, Trash2, Power, PowerOff, FileText } from "lucide-react"
 import { UsersPagination } from "./UsersPagination"
 import { User } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { UserTasksStatistics } from "./UserTasksStatistics"
 import type { UserResource, PaginationMeta } from "@/features/users"
 
 export interface UsersTableViewProps {
@@ -172,6 +173,18 @@ export function UsersTableView({
         <span className="text-sm text-muted-foreground">
           {formatDate(user.created_at)}
         </span>
+      ),
+    },
+    {
+      key: "tasks_statistics",
+      label: "إحصائيات المهام",
+      align: "center",
+      render: (user) => (
+        <UserTasksStatistics
+          statistics={user.tasks_statistics}
+          variant="compact"
+          className="justify-center"
+        />
       ),
     },
     {

@@ -5,6 +5,15 @@
  */
 
 /**
+ * Tasks statistics for a user
+ */
+export interface UserTasksStatistics {
+  total_assigned: number
+  completed: number
+  incomplete: number
+}
+
+/**
  * User resource (from API_CONTRACT.md)
  */
 export interface UserResource {
@@ -18,6 +27,7 @@ export interface UserResource {
   last_login_at: string | null
   created_at: string
   updated_at: string
+  tasks_statistics?: UserTasksStatistics
 }
 
 /**

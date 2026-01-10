@@ -21,7 +21,7 @@ import { roleConfig, type UserRole } from "./roleConfig"
 
 export interface UserProfileProps {
   /**
-   * User name (mock data)
+   * User name
    */
   name?: string
   
@@ -31,10 +31,15 @@ export interface UserProfileProps {
   avatar?: string | null
   
   /**
-   * User role (mock data)
+   * User role
    * Based on API: "admin" | "department"
    */
   role?: UserRole
+  
+  /**
+   * Whether profile is loading
+   */
+  isLoading?: boolean
   
   /**
    * Optional className
@@ -43,9 +48,10 @@ export interface UserProfileProps {
 }
 
 export function UserProfile({
-  name = "أحمد محمد",
+  name = "مستخدم",
   avatar = null,
-  role = "admin",
+  role = "department",
+  isLoading = false,
   className,
 }: UserProfileProps) {
   const config = roleConfig[role]
@@ -53,12 +59,33 @@ export function UserProfile({
 
   // Get initials from name
   const getInitials = (name: string) => {
+    if (!name) return "??"
     return name
       .split(" ")
       .map((word) => word[0])
       .join("")
       .toUpperCase()
       .slice(0, 2)
+  }
+
+  if (isLoading) {
+    return (
+      <div
+        className={cn(
+          "flex flex-col items-center gap-3 p-6 border-b border-sidebar-border",
+          className
+        )}
+      >
+        {/* Loading Avatar */}
+        <div className="relative">
+          <div className="h-20 w-20 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+        </div>
+        {/* Loading Name */}
+        <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+        {/* Loading Role Badge */}
+        <div className="h-8 w-32 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse" />
+      </div>
+    )
   }
 
   return (

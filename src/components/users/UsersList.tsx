@@ -17,6 +17,7 @@ import { UsersTableView } from "./UsersTableView"
 import type { ViewMode } from "./UsersView"
 import type { UserResource, PaginationMeta } from "@/features/users"
 import type { ApiError } from "@/lib/api/api.types"
+import { ErrorState } from "@/components/status/ErrorState" 
 
 export interface UsersListProps {
   users: UserResource[]
@@ -50,20 +51,11 @@ export function UsersList({
   // Error State
   if (error && !isLoading) {
     return (
-      <div className="text-center py-12">
-        <div className="text-destructive mb-4">
-          <p className="font-medium text-lg">حدث خطأ أثناء جلب البيانات</p>
-          <p className="text-sm mt-1">{error.message}</p>
-        </div>
-        {onRefresh && (
-          <button
-            onClick={() => onRefresh()}
-            className="text-sm text-primary hover:underline"
-          >
-            إعادة المحاولة
-          </button>
-        )}
-      </div>
+      <ErrorState
+        message={error.message}
+        onRetry={onRefresh ? () => onRefresh() : undefined}
+        isRetrying={isLoading}
+      />
     )
   }
 

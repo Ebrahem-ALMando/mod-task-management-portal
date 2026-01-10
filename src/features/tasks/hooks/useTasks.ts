@@ -20,7 +20,6 @@
 
 import { useApiQuery } from "@/hooks/useApiQuery"
 import type { TaskResource, PaginationMeta } from "../types/task.types"
-import type { ApiResponse } from "@/hooks/useApiQuery"
 
 /**
  * Query parameters for tasks list
@@ -34,6 +33,8 @@ export interface UseTasksParams {
   to?: string
   filter_field?: "status" | "priority" | "assigned_to_user_id" | "created_by_user_id"
   filter_value?: string | number
+  page?: number
+  deleted?: boolean
 }
 
 /**
@@ -94,18 +95,16 @@ export function useTasks(
   const key = params ? `/tasks?${JSON.stringify(params)}` : "/tasks"
 
   // Fetch using useApiQuery
-  const { data, isLoading, isValidating, error, mutate } = useApiQuery<
-    ApiResponse<TaskResource[]>
+  const { data, meta, isLoading, isValidating, error, mutate } = useApiQuery<
+    TaskResource[]
   >(key, "/tasks", {
     params: params as Record<string, unknown>,
     enabled: options?.enabled,
   })
 
-  // Extract tasks and meta from response
-  // Note: useApiQuery returns data directly, but we need to handle the wrapper
-  // For now, we'll assume data is the array directly (will need to adjust based on actual API response)
+  // Extract tasks from response
+  // useApiQuery already extracts data from response.data
   const tasks = Array.isArray(data) ? data : undefined
-  const meta = undefined // TODO: Extract from full response when available
 
   return {
     tasks,
